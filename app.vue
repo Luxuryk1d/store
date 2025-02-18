@@ -27,9 +27,10 @@
 </template>
 
 <script setup lang="ts">
-const cartItemCount = ref(0)
+const cartItemCount = ref<number>(0)
+
 onMounted(() => {
-  const updateCartCount = () => {
+  const updateCartCount = (): void => {
     const cart = JSON.parse(localStorage.getItem('cart') || '[]')
     cartItemCount.value = cart.length
   }

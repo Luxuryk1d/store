@@ -54,8 +54,10 @@
 </template>
 
 <script setup lang="ts">
+import type { Product } from '~/types'
+
 const route = useRoute()
-const product = ref(null)
+const product = ref<Product | null>(null)
 const { addToCart } = useCart()
 
 onMounted(async () => {

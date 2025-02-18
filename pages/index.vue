@@ -107,12 +107,14 @@
 </template>
 
 <script setup lang="ts">
-const products = ref([])
-const categories = ref([])
-const loading = ref(true)
+import type { Product, Category } from '~/types'
+
+const products = ref<Product[]>([])
+const categories = ref<string[]>([])
+const loading = ref<boolean>(true)
 const { addToCart } = useCart()
 
-const categoriesWithImages = computed(() => {
+const categoriesWithImages = computed<Category[]>(() => {
   return categories.value.map(category => {
     const categoryProduct = products.value.find(product => product.category === category)
     return {

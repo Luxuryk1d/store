@@ -99,34 +99,35 @@
 </template>
 
 <script setup lang="ts">
+import type { Product } from '~/types'
+
 const { getCart, removeFromCart, clearCart } = useCart()
 const router = useRouter()
-const cartItems = ref(getCart())
-const showThankYou = ref(false)
+const cartItems = ref<Product[]>(getCart())
+const showThankYou = ref<boolean>(false)
 
-const totalPrice = computed(() => {
+const totalPrice = computed<number>(() => {
   return cartItems.value.reduce((total, item) => total + item.price, 0)
 })
 
-const handleRemoveFromCart = (productId: number) => {
+const handleRemoveFromCart = (productId: number): void => {
   removeFromCart(productId)
   cartItems.value = cartItems.value.filter(item => item.id !== productId)
 }
 
-const checkout = () => {
+const checkout = (): void => {
   showThankYou.value = true
 }
 
-const finishCheckout = () => {
+const finishCheckout = (): void => {
   clearCart()
   cartItems.value = []
   showThankYou.value = false
   router.push('/')
 }
 
-// Update cart when storage changes
 onMounted(() => {
-  const updateCart = () => {
+  const updateCart = (): void => {
     cartItems.value = getCart()
   }
 
